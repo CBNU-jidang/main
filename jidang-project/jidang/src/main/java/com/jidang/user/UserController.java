@@ -1,13 +1,15 @@
 package com.jidang.user;
 
 import jakarta.validation.Valid;
-
+import java.security.Principal;
+import org.springframework.ui.Model; // 화면에 데이터 전달용
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -67,5 +69,23 @@ public class UserController {
     @GetMapping("/login")
     public String login() {
         return "login";
+    }
+
+    // 1. 마이페이지 화면 이동 (보유 칭호 목록 전달)
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/mypage")
+    public String myPage(Model model, Principal principal) {
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+        
+        model.addAttribute("siteUser", siteUser); // 유저 정보(칭호 목록 포함) 전달
+        return "mypage"; // mypage.html 템플릿 렌더링
+    }
+
+    // 2. 대표 칭호 변경 처리
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/title/update")
+    public String updateTitle(@RequestParam("titleName") String titleName, Principal principal) {
+        this.userService.updateRepresentativeTitle(principal.getName(), titleName);
+        return "redirect:/user/mypage"; // 변경 후 다시 마이페이지로
     }
 }

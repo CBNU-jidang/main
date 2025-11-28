@@ -1,0 +1,40 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+    <h2 class="border-bottom py-2">마이페이지</h2>
+
+    <div class="card my-3">
+        <div class="card-body">
+            <h4 class="card-title" th:text="${siteUser.username} + '님의 정보'"></h4>
+            <p class="card-text">
+                <strong>이메일:</strong> <span th:text="${siteUser.email}"></span><br>
+                <strong>현재 칭호:</strong> 
+                <span th:text="${siteUser.representativeTitle != null ? siteUser.representativeTitle : '없음'}" class="badge bg-primary"></span>
+            </p>
+        </div>
+    </div>
+
+    <h5 class="my-3 border-bottom pb-2">칭호 관리</h5>
+    
+    <form th:action="@{/user/title/update}" method="post">
+        <div class="list-group">
+            <div th:if="${#lists.isEmpty(siteUser.ownedTitles)}" class="alert alert-secondary">
+                아직 획득한 칭호가 없습니다. 활동을 시작해보세요!
+            </div>
+
+            <label th:each="title : ${siteUser.ownedTitles}" class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <input type="radio" name="titleName" th:value="${title.name}" 
+                           th:checked="${title.name == siteUser.representativeTitle}" class="form-check-input me-2">
+                    
+                    <span th:text="${title.name}" class="fw-bold">칭호이름</span>
+                    <small th:text="' - ' + ${title.description}" class="text-muted">설명</small>
+                </div>
+            </label>
+        </div>
+
+        <button type="submit" class="btn btn-success mt-3" th:if="${!#lists.isEmpty(siteUser.ownedTitles)}">
+            칭호 변경하기
+        </button>
+    </form>
+</div>
+</html>

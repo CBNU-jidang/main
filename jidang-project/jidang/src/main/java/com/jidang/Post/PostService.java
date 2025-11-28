@@ -22,6 +22,7 @@ import com.jidang.Game.GameRepository;
 import com.jidang.Tag.Tag;
 import com.jidang.Tag.TagRepository;
 import com.jidang.PostTag.PostTag;
+import com.jidang.Title.TitleService; // TitleService import
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Value;
 import java.util.UUID;
@@ -34,6 +35,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final GameRepository gameRepository;
     private final TagRepository tagRepository;
+    private final TitleService titleService; // [추가] 주입 받기
 
     public List<Post> getList() {
         return this.postRepository.findAll();
@@ -162,7 +164,19 @@ public class PostService {
             }
         }
 
-        return postRepository.save(newPost);
+        // [수정된 부분 시작] -------------------------
+        
+        // 1. 게시글을 먼저 DB에 저장함 (그래야 개수가 카운트됨)
+        Post savedPost = postRepository.save(newPost);
+
+        // 2. 칭호 서비스 호출 (게시글 수 체크 및 칭호 부여)
+        // (PostService 상단에 private final TitleService titleService; 주입 필수)
+        this.titleService.checkPostTitle(user);
+
+        // 3. 저장된 게시글 반환
+        return savedPost;
+        
+        // [수정된 부분 끝] ---------------------------
     }
 
 

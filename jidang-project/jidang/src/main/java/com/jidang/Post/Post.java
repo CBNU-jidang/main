@@ -55,7 +55,13 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
+    
+    // 저장된 파일의 이름 (예: uuid_image.jpg) -> 리포지토리가 이 이름을 찾고 있습니다.
+    private String filename;
 
+    // 웹에서 접근할 때 사용할 경로 (예: /uploads/uuid_image.jpg)
+    private String filepath;
+    
     /* =========================
        댓글
     ========================= */

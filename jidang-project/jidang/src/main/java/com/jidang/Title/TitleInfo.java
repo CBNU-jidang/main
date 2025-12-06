@@ -10,7 +10,9 @@ public enum TitleInfo {
     STRATEGY_MASTER("공략마스터", "공략 태그 글 5개 이상 작성", "공략", "🎮"),
     COMMENT_KING("수다쟁이", "댓글 20개 이상 작성", "커뮤니티", "💬"),
     VETERAN("고인물", "총 플레이타임 10000시간 이상", "플레이 타임", "🕒"),
-    FANART_MASTER("팬아트 장인", "팬아트 게시물을 10개 이상 작성", "팬아트", "🎨");
+    FANART_MASTER("팬아트 장인", "팬아트 게시물을 10개 이상 작성", "팬아트", "🎨"),
+    POPULAR_STAR("인기스타", "좋아요 30개 이상 받은 게시물 보유", "명예", "🌟"),
+    PHOTOGRAPHER("사진작가", "이미지가 포함된 게시물 10개 이상 작성", "미디어", "📸");
 
     private final String displayName;   // SiteUser.titles 에 저장되는 한글 이름
     private final String description;

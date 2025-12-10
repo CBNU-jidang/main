@@ -5,11 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c0764d9-7301-456d-8273-11b053d9d6a0" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/jidang-project/jidang/src/main/resources/static/js/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jidang-project/jidang/src/main/resources/static/js/search.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jidang-project/jidang/src/main/resources/templates/searchpage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jidang-project/jidang/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/jidang-project/jidang/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jidang-project/jidang/src/main/resources/static/css/postdetail.css" beforeDir="false" afterPath="$PROJECT_DIR$/jidang-project/jidang/src/main/resources/static/css/postdetail.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jidang-project/jidang/src/main/resources/static/js/postdetail.js" beforeDir="false" afterPath="$PROJECT_DIR$/jidang-project/jidang/src/main/resources/static/js/postdetail.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jidang-project/jidang/src/main/resources/templates/postdetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/jidang-project/jidang/src/main/resources/templates/postdetail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jidang-project/jidang/src/main/java/com/jidang/Post/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/jidang-project/jidang/src/main/java/com/jidang/Post/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jidang-project/jidang/src/main/resources/static/css/postlist.css" beforeDir="false" afterPath="$PROJECT_DIR$/jidang-project/jidang/src/main/resources/static/css/postlist.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jidang-project/jidang/src/main/resources/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/jidang-project/jidang/src/main/resources/static/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jidang-project/jidang/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/jidang-project/jidang/src/main/resources/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

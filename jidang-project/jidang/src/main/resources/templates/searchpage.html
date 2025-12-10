@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{index :: layout(~{::content}, ~{::scripts}, ~{::css})}">
+
+<!-- 페이지 CSS -->
+<th:block th:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/postlist.css}">
+</th:block>
+
+<div th:fragment="content" class="community-page">
+
+    <!-- ============================
+         검색 헤더
+    ============================= -->
+    <section class="community-header">
+
+        <div class="community-header-inner">
+            <div class="header-left">
+                <h1 class="community-title">게시물 검색</h1>
+                <p class="community-subtitle">키워드 · 게임 · 태그로 게시물을 찾아보세요</p>
+            </div>
+        </div>
+
+        <!-- 🔍 검색 + 필터 -->
+        <form th:action="@{/post/search}" method="get" class="search-filter-box">
+
+            <!-- 키워드 -->
+            <div class="filter-row">
+                <label>검색어</label>
+                <input type="text"
+                       name="keyword"
+                       placeholder="검색어 입력"
+                       th:value="${searchCondition.keyword}">
+            </div>
+
+            <!-- 게임 종류 -->
+            <div class="filter-row">
+                <label>게임</label>
+                <select name="gameType">
+                    <option value="">전체</option>
+                    <option th:each="g : ${games}"
+                            th:value="${g.name}"
+                            th:selected="${searchCondition.gameType == g.name}"
+                            th:text="${g.name}">
+                    </option>
+                </select>
+            </div>
+
+            <!-- 게시물 태그 -->
+            <div class="filter-row">
+                <label>게시물</label>
+                <select name="tags">
+                    <option value="">전체</option>
+                    <option th:each="t : ${tags}"
+                            th:value="${t.name}"
+                            th:selected="${searchCondition.tags == t.name}"
+                            th:text="${t.name}">
+                    </option>
+                </select>
+            </div>
+
+            <button type="submit" class="search-btn">검색하기</button>
+        </form>
+    </section>
+
+    <!-- ============================
+         검색 결과 리스트
+    ============================= -->
+    <section class="post-list">
+
+        <article class="post-card"
+                 th:each="post : ${posts}"
+                 th:attr="data-href=@{|/post/detail/${post.id}|}">
+            <div class="post-tag-wrapper">
+                <span class="tag-box game-tag" th:text="${post.game?.name}"></span>
+                <span class="tag-box post-tag" th:text="${post.postTags[0].tag.name}"
+                      th:if="${post.postTags.size() > 0}"></span>
+            </div>
+
+            <h2 class="post-title" th:text="${post.subject}"></h2>
+            <p class="post-excerpt" th:text="${#strings.abbreviate(post.content, 80)}"></p>
+
+            <div class="post-meta">
+                <span th:text="${post.author?.username}">익명</span>
+                <span class="post-meta-dot"></span>
+                <span th:text="${post.createDate}"></span>
+            </div>
+
+            <div class="post-footer">
+                <div class="stat stat-like">
+                    <span class="stat-icon">❤</span>
+                    <span th:text="${post.liker.size()}">0</span>
+                </div>
+            </div>
+        </article>
+
+        <p class="empty-message" th:if="${#lists.isEmpty(posts)}">
+            검색 결과가 없습니다.
+        </p>
+    </section>
+
+</div>
+
+<!-- JS -->
+<th:block th:fragment="scripts">
+    <script defer th:src="@{/js/postlist.js}"></script>
+</th:block>
+</html>

@@ -12,29 +12,50 @@ html {
   scroll-behavior: smooth;
 }
 
+:root {
+  /* 메인 컬러 */
+  --primary: #715cff;
+  --primary-light: #9b6bff;
+
+  /* 텍스트 */
+  --text-main: #ffffff;
+  --text-sub: #eaeaea;
+  --text-muted: #ccc;
+
+  /* 배경 */
+  --bg-main: #0e0e0e;
+  --bg-dark: #1e1e1e;
+
+  /* 보더 */
+  --border: #333;
+
+  /* 투명 포인트 */
+  --primary-transparent-20: rgba(113, 92, 255, 0.20);
+  --primary-transparent-42: rgba(113, 92, 255, 0.42);
+}
+
+/* ============================
+    페이지 기본
+============================ */
 body {
   font-family: sans-serif;
   line-height: 1.5;
-  background: #0e0e0e;
-  color: #000;
-  padding: 0;
-
+  background: var(--bg-main);
+  color: var(--text-main);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-main {
-  flex: 1;
-}
+main { flex: 1; }
 
 /* ============================
     Header / Navigation
 ============================ */
 .site-header {
   width: 100%;
-  background: #121212;
-  border-bottom: 1px solid #333;
+  background: var(--bg-dark);
+  border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
   z-index: 999;
@@ -49,37 +70,29 @@ main {
   justify-content: space-between;
 }
 
-/* 로고 */
 .logo a {
-  color: #715cff;
+  color: var(--primary);
   font-size: 1.3rem;
   font-weight: bold;
   text-decoration: none;
 }
 
-/* ============================
-    Nav Links (PC)
-============================ */
+/* Navigation Links */
 .nav-links {
   display: flex;
   gap: 20px;
 }
 
 .nav-links a {
-  color: #ccc;
+  color: var(--text-muted);
   text-decoration: none;
   font-size: 0.95rem;
   font-weight: bold;
   transition: color 0.2s;
 }
 
-.nav-links a:hover {
-  color: #715cff;
-}
-
-.nav-links a.active {
-  color: #715cff;
-}
+.nav-links a:hover { color: var(--primary-light); }
+.nav-links a.active { color: var(--primary); }
 
 /* ============================
     오른쪽 액션 버튼들
@@ -94,7 +107,7 @@ main {
   background: none;
   border: none;
   font-size: 1.2rem;
-  color: #fff;
+  color: var(--text-main);
   cursor: pointer;
   padding: 6px;
   border-radius: 6px;
@@ -102,11 +115,11 @@ main {
 }
 
 .icon-btn:hover {
-  background: #1e1e1e;
+  background: var(--primary-transparent-20);
 }
 
 /* ============================
-    검색창 (PC만 표시)
+    검색창
 ============================ */
 .search-form {
   display: flex;
@@ -114,12 +127,16 @@ main {
 }
 
 .search-form input {
-  padding: 5px 10px;
+  padding: 6px 10px;
   border-radius: 6px;
-  border: 1px solid #333;
+  border: 1px solid var(--border);
+  background: var(--bg-dark);
+  color: var(--text-main);
   outline: none;
-  background: #1b1b1b;
-  color: #fff;
+}
+
+.search-form input::placeholder {
+  color: var(--text-muted);
 }
 
 .search-form.hidden {
@@ -130,92 +147,42 @@ main {
     모바일 메뉴
 ============================ */
 .mobile-menu {
-  background: #1e1e1e;
-  border-top: 1px solid #333;
-  display: none;           /* ← 기본 숨김 */
+  background: var(--bg-dark);
+  border-top: 1px solid var(--border);
+  display: flex;
   flex-direction: column;
   padding: 12px 20px;
   gap: 14px;
 }
 
 .mobile-menu a {
-  color: #ddd;
+  color: var(--text-sub);
   text-decoration: none;
-  font-size: 1rem;
   padding: 6px 0;
 }
 
-.mobile-menu a:hover {
-  color: #715cff;
-}
+.mobile-menu a:hover { color: var(--primary-light); }
 
-/* 숨김 클래스 */
-.hidden {
-  display: none !important;
-}
+.hidden { display: none !important; }
 
 /* ============================
-    반응형 설정
+    반응형
 ============================ */
-.pc-only {
-  display: flex;
-}
+.pc-only { display: flex; }
+.mobile-only { display: none; }
 
-.mobile-only {
-  display: none;
-}
-
-/* --- 화면 너비 768px 이하부터 모바일 형태 적용 --- */
 @media (max-width: 768px) {
-
-  .pc-only {
-    display: none !important;
-  }
-
-  .mobile-only {
-    display: flex !important;
-  }
-
-  .nav-links {
-    display: none;
-  }
+  .pc-only { display: none !important; }
+  .mobile-only { display: flex !important; }
+  .nav-links { display: none; }
 }
 
 /* ============================
-    본문 & Footer
+    Footer
 ============================ */
-.content-area {
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 0 20px;
-}
-
-.site-footer {
-  text-align: center;
-  padding: 20px 0;
-  margin-top: 40px;
-  border-top: 1px solid #ccc;
-}
-
-/* =============================
-    색상 변수
-============================= */
-:root {
-  --background: #0f0f0f;
-  --secondary: #1a1a1a;
-  --foreground: #eaeaea;
-  --muted: rgba(255, 255, 255, 0.5);
-  --border: #333;
-  --primary: #715cff;
-  --accent: #9b6bff;
-}
-
-/* =============================
-    Footer Section
-============================= */
 .footer-section {
-  background: var(--secondary);
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  background: var(--bg-dark);
+  border-top: 1px solid var(--primary-transparent-20);
   padding: 3rem 1rem;
 }
 
@@ -224,7 +191,6 @@ main {
   margin: 0 auto;
 }
 
-/* Grid Layout */
 .footer-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -233,12 +199,9 @@ main {
 }
 
 @media (min-width: 768px) {
-  .footer-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
+  .footer-grid { grid-template-columns: repeat(4, 1fr); }
 }
 
-/* Brand */
 .footer-brand .footer-logo {
   display: flex;
   align-items: center;
@@ -248,7 +211,7 @@ main {
 .logo-icon {
   width: 36px;
   height: 36px;
-  background: linear-gradient(to bottom right, var(--primary), var(--accent));
+  background: linear-gradient(to bottom right, var(--primary), var(--primary-light));
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -260,45 +223,32 @@ main {
 .logo-text {
   font-size: 18px;
   font-weight: bold;
-  color: #9b6bff;
+  color: var(--primary-light);
 }
 
 .footer-desc {
   margin-top: 0.7rem;
-  color: var(--muted);
+  color: var(--text-muted);
   font-size: 14px;
 }
 
-/* Titles */
 .footer-title {
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: var(--foreground);
-}
-
-/* List */
-.footer-list {
-  list-style: none;
-  padding: 0;
-}
-
-.footer-list li {
-  margin-bottom: 0.5rem;
+  color: var(--text-sub);
 }
 
 .footer-list a {
-  color: var(--muted);
-  font-size: 14px;
+  color: var(--text-muted);
   text-decoration: none;
-  transition: color 0.2s ease;
+  font-size: 14px;
 }
 
 .footer-list a:hover {
-  color: var(--accent);
+  color: var(--primary-light);
 }
 
-/* Social Buttons */
 .footer-social {
   display: flex;
   gap: 0.8rem;
@@ -308,22 +258,19 @@ main {
   width: 36px;
   height: 36px;
   background: #222;
+  color: var(--text-main);
   border-radius: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--foreground);
-  font-size: 16px;
-  transition: background 0.2s ease;
 }
 
 .social-btn:hover {
-  background: rgba(155, 107, 255, 0.2);
+  background: var(--primary-transparent-42);
 }
 
-/* Bottom */
 .footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid var(--primary-transparent-20);
   padding-top: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -339,8 +286,8 @@ main {
 }
 
 .footer-copy {
-  color: var(--muted);
   font-size: 14px;
+  color: var(--text-muted);
 }
 
 .footer-links {
@@ -349,12 +296,10 @@ main {
 }
 
 .footer-links a {
-  color: var(--muted);
-  font-size: 14px;
+  color: var(--text-muted);
   text-decoration: none;
-  transition: color 0.2s ease;
 }
 
 .footer-links a:hover {
-  color: var(--accent);
+  color: var(--primary-light);
 }

@@ -9,10 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${pageTitle} ?: 'Jidang'">Jidang</title>
 
-    <!--기본 CSS-->
+    <!-- 기본 CSS -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
 
-    <!--페이지별 추가 CSS-->
+    <!-- 페이지별 추가 CSS -->
     <th:block th:replace="${css}"></th:block>
 </head>
 <body>
@@ -26,40 +26,72 @@
 
         <!-- PC 메뉴 -->
         <nav class="nav-links">
-            <a th:href="@{/post/community}" th:classappend="${activePage == 'community'} ? 'active'">커뮤니티</a>
-            <a th:href="@{/#game-section}" th:classappend="${activePage == 'games'} ? 'active'">게임</a>
+            <a th:href="@{/post/community}"
+               th:classappend="${activePage == 'community'} ? 'active'">
+                커뮤니티
+            </a>
+            <a th:href="@{/#game-section}"
+               th:classappend="${activePage == 'games'} ? 'active'">
+                게임
+            </a>
             <!-- 페이지 정리 후 경로 수정 필요, 모바일 버전 포함;; -->
-            <a href="/guides" th:classappend="${activePage == 'guides'} ? 'active'">공략</a>
-            <a href="/official" th:classappend="${activePage == 'official'} ? 'active'">공식</a>
-            <a href="/title" th:classappend="${activePage == 'achievements'} ? 'active'">업적</a>
+            <a th:href="@{/guides}"
+               th:classappend="${activePage == 'guides'} ? 'active'">
+                공략
+            </a>
+            <a th:href="@{/official}"
+               th:classappend="${activePage == 'official'} ? 'active'">
+                공식
+            </a>
+            <a th:href="@{/title}"
+               th:classappend="${activePage == 'achievements'} ? 'active'">
+                업적
+            </a>
         </nav>
 
         <!-- 오른쪽 액션들 -->
         <div class="nav-actions">
 
             <!-- 검색 버튼 -->
-            <button class="icon-btn pc-only" onclick="toggleSearch()">
+            <button class="icon-btn pc-only"
+                    type="button"
+                    onclick="toggleSearch()">
                 🔍
             </button>
 
-            <!-- 검색 인풋 -->
-            <form id="searchForm" action="/search" method="get" class="search-form hidden pc-only">
-                <input type="text" name="q" placeholder="게시글 검색..." />
+            <!-- 🔍 검색 인풋: /post/search + keyword -->
+            <form id="searchForm"
+                  th:action="@{/post/search}"
+                  method="get"
+                  class="search-form hidden pc-only">
+                <input type="text"
+                       name="keyword"
+                       placeholder="게시글 검색..."
+                       th:value="${param.keyword}" />
             </form>
 
             <!-- 알림 (임시) -->
-            <button class="icon-btn">
+            <button class="icon-btn" type="button">
                 🔔
             </button>
 
             <!-- 로그인/프로필 -->
-            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">👤로그인</a>
-            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/mypage}">
+            <a class="nav-link"
+               sec:authorize="isAnonymous()"
+               th:href="@{/user/login}">
+                👤로그인
+            </a>
+
+            <a class="nav-link"
+               sec:authorize="isAuthenticated()"
+               th:href="@{/user/mypage}">
                 ⚙️ 마이페이지
             </a>
 
             <!-- 모바일 메뉴 버튼 -->
-            <button class="icon-btn mobile-only" onclick="toggleMobileMenu()">
+            <button class="icon-btn mobile-only"
+                    type="button"
+                    onclick="toggleMobileMenu()">
                 ☰
             </button>
         </div>
@@ -67,12 +99,12 @@
 
     <!-- 모바일 메뉴 -->
     <div id="mobileMenu" class="mobile-menu hidden">
-        <a href="/">홈</a>
-        <a href="/community">커뮤니티</a>
-        <a href="/games">게임</a>
-        <a href="/guides">공략</a>
-        <a href="/official">공식</a>
-        <a href="/achievements">업적</a>
+        <a th:href="@{/}">홈</a>
+        <a th:href="@{/post/community}">커뮤니티</a>
+        <a th:href="@{/#game-section}">게임</a>
+        <a th:href="@{/guides}">공략</a>
+        <a th:href="@{/official}">공식</a>
+        <a th:href="@{/title}">업적</a>
     </div>
 </header>
 
@@ -143,20 +175,8 @@
     </div>
 </footer>
 
-<script th:inline="javascript">
-    document.addEventListener("DOMContentLoaded", () => {
-
-        window.toggleSearch = function () {
-            const form = document.getElementById("searchForm");
-            if (form) form.classList.toggle("hidden");
-        }
-
-        window.toggleMobileMenu = function () {
-            const menu = document.getElementById("mobileMenu");
-            if (menu) menu.classList.toggle("hidden");
-        }
-    });
-</script>
+<!-- 공통 JS 파일 -->
+<script defer th:src="@{/js/index.js}"></script>
 
 </body>
 </html>

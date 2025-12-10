@@ -270,7 +270,7 @@ public class PostController {
         model.addAttribute("posts", searchResults);
         model.addAttribute("searchCondition", condition);
 
-        return "community";
+        return "searchpage";
     }
 
 }

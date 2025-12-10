@@ -1,11 +1,18 @@
 :root {
-    --point-purple: #8b5cf6;
+    /* 포인트 컬러 */
+    --point-purple: #715cff;
     --point-purple-dark: #6d28d9;
+
+    /* 배경 / 텍스트 / 보더 */
     --bg-card: #111111;
     --bg-deeper: #0b0b0b;
     --text-main: #f5f5f5;
     --text-sub: #a1a1a1;
     --border-soft: #222222;
+
+    /* 투명 보라 계열 */
+    --purple-soft: rgba(113, 92, 255, 0.20);
+    --purple-soft-strong: rgba(113, 92, 255, 0.42);
 }
 
 /* 페이지 컨테이너 */
@@ -153,8 +160,8 @@
 
 .action-btn {
     border-radius: 999px;
-    border: 1px solid var(--border-soft);
-    background: var(--bg-card);
+    border: 1px solid var(--purple-soft-strong);
+    background: var(--purple-soft);
     color: var(--text-main);
     padding: 8px 16px;
     font-size: 0.9rem;
@@ -166,12 +173,14 @@
 }
 
 .action-btn:hover {
-    background: #161616;
+    background: var(--purple-soft-strong);
     border-color: var(--point-purple);
     transform: translateY(-1px);
 }
 
-/* 댓글 영역 */
+/* =========================
+   댓글 영역
+========================= */
 .post-detail-comments {
     background: var(--bg-deeper);
     border-radius: 18px;
@@ -179,6 +188,7 @@
     border: 1px solid var(--border-soft);
 }
 
+/* 제목 + 개수 */
 .comments-title {
     font-size: 1.1rem;
     font-weight: 700;
@@ -194,36 +204,70 @@
     color: var(--text-sub);
 }
 
-/* 댓글 목록 */
+/* 댓글 목록 전체 */
 .comments-list {
     margin-bottom: 16px;
 }
 
+/* 개별 댓글 카드 */
 .comment-item {
     padding: 10px 0;
-    border-bottom: 1px solid #1f2933;
+    border-bottom: 1px solid var(--border-soft);
 }
 
 .comment-item:last-child {
     border-bottom: none;
 }
 
+/* 메타: 좌측 정보 + 우측 버튼 */
 .comment-meta {
-    font-size: 0.8rem;
-    color: var(--text-sub);
-    margin-bottom: 4px;
     display: flex;
     align-items: center;
-    gap: 4px;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 4px;
+    font-size: 0.8rem;
+    color: var(--text-sub);
+}
+
+/* 왼쪽: 작성자, ·, (답글), 시간 */
+.comment-meta-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .comment-author {
     font-weight: 600;
+    color: var(--text-main);
 }
 
+.comment-dot {
+    color: #4b5563;
+}
+
+.comment-time {
+    font-size: 0.78rem;
+    color: var(--text-sub);
+}
+
+.comment-badge {
+    font-size: 0.75rem;
+    color: #c7b3ff;
+}
+
+/* 오른쪽: 버튼 묶음 */
+.comment-meta-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* 댓글 내용 */
 .comment-content {
     font-size: 0.92rem;
     color: var(--text-main);
+    white-space: pre-wrap;
 }
 
 .comments-empty {
@@ -232,7 +276,93 @@
     margin-bottom: 12px;
 }
 
-/* 댓글 폼 */
+/* ===== 버튼 공통 스타일 ===== */
+/* 버튼 + (a 링크 버튼용) 둘 다 커버 */
+.comment-meta-right button,
+.comment-actions button,
+.comment-submit-btn,
+.comment-edit-link,
+.comment-delete-link {
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    border: 1px solid var(--purple-soft-strong);
+    background: var(--purple-soft);
+    color: var(--text-main);
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.05s ease;
+    text-decoration: none;          /* a 링크용 */
+    display: inline-flex;           /* a 링크용 */
+    align-items: center;
+    justify-content: center;
+}
+
+.comment-meta-right button:hover,
+.comment-actions button:hover,
+.comment-edit-link:hover,
+.comment-delete-link:hover,
+.comment-submit-btn:hover {
+    background: var(--purple-soft-strong);
+    border-color: var(--point-purple);
+    transform: translateY(-1px);
+}
+
+/* 수정 버튼(색은 기본 보라 그대로) */
+.comment-edit-btn,
+.comment-edit-link {
+    /* 공통 스타일 그대로 사용 */
+}
+
+/* 삭제 버튼: 빨간색 포인트 유지 */
+.comment-delete-btn,
+.comment-delete-link {
+    border-color: #f97373;
+    background: transparent;
+    color: #fca5a5;
+}
+
+.comment-delete-btn:hover,
+.comment-delete-link:hover {
+    background: rgba(248, 113, 113, 0.14);
+    border-color: #f97373;
+    color: #ffb4b4;
+}
+
+/* 답글 토글 버튼: 살짝 더 밝은 보라 텍스트 */
+.comment-reply-toggle-btn {
+    color: #e5ddff;
+}
+
+/* ===== 대댓글 스타일 ===== */
+.comment-replies {
+    margin-top: 2px;
+}
+
+.comment-reply-item {
+    margin-left: 28px;
+    margin-top: 4px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border-left: 2px solid #333;
+    position: relative;
+}
+
+/* “└” 표시도 회색으로 */
+.comment-reply-item::before {
+    content: "└";
+    position: absolute;
+    left: -16px;
+    top: 10px;
+    font-size: 0.75rem;
+    color: #555;
+}
+
+.comment-reply-item .comment-content {
+    font-size: 0.88rem;
+}
+
+/* 댓글 폼 (새 댓글 + 대댓글 공통) */
 .comment-form {
     margin-top: 8px;
     display: flex;
@@ -255,26 +385,21 @@
     color: #4b5563;
 }
 
+/* 폼 푸터: 버튼 오른쪽 정렬 */
 .comment-form-footer {
     display: flex;
     justify-content: flex-end;
 }
 
+/* 메인 작성 / 등록 버튼: 이미 위 공통 보라 버튼 스타일 사용 */
 .comment-submit-btn {
-    border-radius: 999px;
-    border: none;
-    background: var(--point-purple);
-    color: #ffffff;
-    padding: 6px 16px;
-    font-size: 0.9rem;
     font-weight: 600;
-    cursor: pointer;
-    transition: background 0.15s ease, transform 0.1s ease;
 }
 
-.comment-submit-btn:hover {
-    background: var(--point-purple-dark);
-    transform: translateY(-1px);
+/* 에러 메시지 */
+.comment-error {
+    font-size: 0.8rem;
+    color: #fca5a5;
 }
 
 /* 반응형 */
@@ -289,5 +414,9 @@
 
     .post-detail-actions {
         flex-wrap: wrap;
+    }
+
+    .comment-reply-item {
+        margin-left: 18px;
     }
 }

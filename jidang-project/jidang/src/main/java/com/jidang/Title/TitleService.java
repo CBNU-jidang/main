@@ -31,6 +31,8 @@ public class TitleService {
     private static final String TITLE_FANART_MASTER =
             TitleInfo.FANART_MASTER.getDisplayName();
     // 추가시 이곳에 조건을 부여할 칭호 작성
+    private static final String TITLE_POPULAR_STAR = TitleInfo.POPULAR_STAR.getDisplayName();
+    private static final String TITLE_PHOTOGRAPHER = TitleInfo.PHOTOGRAPHER.getDisplayName();
 
     /*
      유저의 현재 글/댓글 수를 보고 칭호를 부여하는 로직
@@ -69,6 +71,25 @@ public class TitleService {
 
             if (fanartCount >= 10) {
                 user.addTitle(TITLE_FANART_MASTER);
+            }
+        }
+
+        // 인기스타: 좋아요 30개 이상 받은 글이 1개라도 있는가?
+        if (!currentTitles.contains(TITLE_POPULAR_STAR)) {
+            // 좋아요 30개 이상인 글의 개수를 셈
+            long hotPostCount = postRepository.countPostsByAuthorAndMinLikes(user, 30);
+            
+            if (hotPostCount > 0) {
+                user.addTitle(TITLE_POPULAR_STAR);
+            }
+        }
+
+        // 사진작가: 이미지가 첨부된 글이 10개 이상인가?
+        if (!currentTitles.contains(TITLE_PHOTOGRAPHER)) {
+            long photoPostCount = postRepository.countByAuthorAndFilenameIsNotNull(user);
+            
+            if (photoPostCount >= 10) {
+                user.addTitle(TITLE_PHOTOGRAPHER);
             }
         }
 
